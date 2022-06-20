@@ -3,19 +3,77 @@ let nameInput = document.getElementById('name')
 let surnameInput = document.getElementById('surname')
 let emailInput = document.getElementById('email')
 let passwordInput = document.getElementById('password')
-let confirmPassword = document.getElementById('password')
+let confirmPasswordInput = document.getElementById('confirm-password')
 let corFundoValidado = "rgb(223, 237, 236)" //'#dfedec'
 
 //-----------------------Name validations--------------------------
 nameInput.addEventListener('keyup', event =>{
     let nameInfo = document.getElementById('name-info')
-    nameInput.value.length < 2 ? nameInfo.style.visibility = 'visible' : nameInfo.style.visibility = 'hidden'
+    if(nameInput.value.length < 2){
+        if(!nameInput.value.length){
+            nameInfo.style.visibility = 'visible'    
+            nameInfo.innerText = 'Needed field'
+        }else{
+            nameInfo.style.visibility = 'visible'
+            nameInfo.innerText = 'Insert your first name'
+        } 
+        if(event.key){
+            nameInput.style.boxShadow = '0 0 0 2px #CAEDEB'
+            nameInput.style.backgroundColor = '#fff'
+        }
+    }else{
+        nameInfo.style.visibility = 'hidden'
+        nameInput.style.boxShadow = 'none'
+        nameInput.style.backgroundColor = corFundoValidado
+    }
+    buttonValidation(nameInput.style.backgroundColor,surnameInput.style.backgroundColor, emailInput.style.backgroundColor, confirmPasswordInput.style.backgroundColor)
+})
+
+nameInput.addEventListener('blur', () => {
+    let nameInfo = document.getElementById('name-info')
+    if(nameInput.value.length < 2){
+        nameInfo.style.visibility = 'visible'
+        nameInput.style.boxShadow = '0 0 0 2px #EB5E5E'
+        nameInput.style.backgroundColor = 'hsl(0, 49%, 90%)'
+    }else{
+        nameInfo.style.visibility = 'hidden'
+        nameInput.style.boxShadow = 'none'
+    }
 })
 
 //-----------------------Surname validations--------------------------
 surnameInput.addEventListener('keyup', event =>{
     let surnameInfo = document.getElementById('surname-info')
-    surnameInput.value.length < 2 ? surnameInfo.style.visibility = 'visible' : surnameInfo.style.visibility = 'hidden'
+    if(surnameInput.value.length < 2){
+        if(!surnameInput.value.length){
+            surnameInfo.style.visibility = 'visible'    
+            surnameInfo.innerText = 'Needed field'
+        }else{
+            surnameInfo.style.visibility = 'visible'
+            surnameInfo.innerText = 'Insert your last surname'
+        } 
+        if(event.key){
+            surnameInput.style.boxShadow = '0 0 0 2px #CAEDEB'
+            surnameInput.style.backgroundColor = '#fff'
+        }
+    }else{
+        surnameInfo.style.visibility = 'hidden'
+        surnameInput.style.boxShadow = 'none'
+        surnameInput.style.backgroundColor = corFundoValidado
+    }
+    buttonValidation(nameInput.style.backgroundColor,surnameInput.style.backgroundColor, emailInput.style.backgroundColor, confirmPasswordInput.style.backgroundColor)
+})
+
+surnameInput.addEventListener('blur', () => {
+    let surnameInfo = document.getElementById('name-info')
+    if(surnameInput.value.length < 2){
+        surnameInfo.style.visibility = 'visible'
+        surnameInput.style.boxShadow = '0 0 0 2px #EB5E5E'
+        surnameInput.style.backgroundColor = 'hsl(0, 49%, 90%)'
+    }else{
+        surnameInfo.style.visibility = 'hidden'
+        surnameInput.style.boxShadow = 'none'
+    }
 })
 
 //-----------------------E-mail validations--------------------------
@@ -38,7 +96,7 @@ emailInput.addEventListener('keyup', event => {
         emailInput.style.backgroundColor = corFundoValidado
         infoEmail.style.visibility = 'hidden'
     }
-    buttonValidation(emailInput.style.backgroundColor, passwordInput.style.backgroundColor)
+    buttonValidation(nameInput.style.backgroundColor,surnameInput.style.backgroundColor, emailInput.style.backgroundColor, confirmPasswordInput.style.backgroundColor)
 })
 
 emailInput.addEventListener('blur', () => {
@@ -73,7 +131,6 @@ passwordInput.addEventListener('keyup', event =>{
         passwordInput.style.backgroundColor = corFundoValidado
         passwordInfo.style.visibility = 'hidden'
     }
-    buttonValidation(emailInput.style.backgroundColor, passwordInput.style.backgroundColor)
 })
 
 passwordInput.addEventListener('blur', () => { 
@@ -88,9 +145,44 @@ passwordInput.addEventListener('blur', () => {
     }
 })
 
+//-----------------------Confirm Password validations--------------------------
+confirmPasswordInput.addEventListener('keyup', event =>{
+    let confirmPasswordInfo = document.getElementById('confirm-password-info')
+    if(confirmPasswordInput.value != passwordInput.value){
+        if(passwordInput.value.length == ``){
+            confirmPasswordInfo.innerText = `Needed field`
+            confirmPasswordInfo.style.visibility = 'visible'
+        }else{    
+            confirmPasswordInfo.innerText = `Passwords are different`
+            confirmPasswordInfo.style.visibility = 'visible'
+        }
+        if(event.key){
+            confirmPasswordInput.style.boxShadow = '0 0 0 2px #CAEDEB'
+            confirmPasswordInput.style.backgroundColor = '#fff'   
+        }
+    }else{
+        confirmPasswordInput.style.boxShadow = 'none'
+        confirmPasswordInput.style.backgroundColor = corFundoValidado
+        confirmPasswordInfo.style.visibility = 'hidden'
+    }
+    buttonValidation(nameInput.style.backgroundColor,surnameInput.style.backgroundColor, emailInput.style.backgroundColor, confirmPasswordInput.style.backgroundColor)
+})
+
+confirmPasswordInput.addEventListener('blur', () => { 
+    let confirmPasswordInfo = document.getElementById('confirm-password-info')
+    if(confirmPasswordInput.value != passwordInput.value){
+        confirmPasswordInfo.style.visibility = 'visible'
+        confirmPasswordInput.style.boxShadow = '0 0 0 2px #EB5E5E'
+        confirmPasswordInput.style.backgroundColor = 'hsl(0, 49%, 90%)'
+    }else{
+        confirmPasswordInfo.style.visibility = 'hidden'
+        confirmPasswordInput.style.boxShadow = 'none'
+    }
+})
+
 //------------------------Button validations----------------------------
-function buttonValidation(emailStyle, passwordStyle){
-    if(emailStyle == corFundoValidado && passwordStyle == corFundoValidado){
+function buttonValidation(nameStyle, surnameStyle, emailStyle, passwordStyle){
+    if(nameStyle==corFundoValidado && surnameStyle==corFundoValidado && emailStyle == corFundoValidado && passwordStyle == corFundoValidado){
         buttonElement.removeAttribute('disabled')
         buttonElement.style.cursor = 'pointer'
         buttonElement.style.backgroundColor = '#fbb232'
