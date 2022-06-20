@@ -3,6 +3,13 @@ let emailInput = document.getElementById('email')
 let passwordInput = document.getElementById('password')
 let corFundoValidado = "rgb(223, 237, 236)" //'#dfedec'
 
+//-----------------------User object--------------------------
+let userObject = {
+    'email': '',
+    'password': ''
+}
+
+
 //-----------------------E-mail validations--------------------------
 emailInput.addEventListener('keyup', event => {
     let infoEmail = document.getElementById('email-info')
@@ -88,8 +95,15 @@ function buttonValidation(emailStyle, passwordStyle){
 
 //------------------------Button action----------------------------
 buttonElement.addEventListener('click', event => {
-    console.log(removeBlankSpace(emailInput.value))
-    console.log(removeBlankSpace(passwordInput.value))
+    let email = removeBlankSpace(emailInput.value)
+    let password = removeBlankSpace(passwordInput.value)
+
+    userObject.email = email
+    userObject.password = password
+
+    let userObjectJSON = JSON.stringify(userObject)
+    console.log(userObjectJSON)
+
     event.preventDefault()
 })
 

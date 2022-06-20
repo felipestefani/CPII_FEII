@@ -6,6 +6,14 @@ let passwordInput = document.getElementById('password')
 let confirmPasswordInput = document.getElementById('confirm-password')
 let corFundoValidado = "rgb(223, 237, 236)" //'#dfedec'
 
+//-----------------------Sing up user object--------------------------
+let signUpUserObject = {
+    'name': '',
+    'surname': '',
+    'email': '',
+    'password': ''
+}
+
 //-----------------------Name validations--------------------------
 nameInput.addEventListener('keyup', event =>{
     let nameInfo = document.getElementById('name-info')
@@ -195,8 +203,19 @@ function buttonValidation(nameStyle, surnameStyle, emailStyle, passwordStyle){
 
 //------------------------Button action----------------------------
 buttonElement.addEventListener('click', event => {
-    console.log(removeBlankSpace(emailInput.value))
-    console.log(removeBlankSpace(passwordInput.value))
+    let name =  removeBlankSpace(nameInput.value)   
+    let surname = removeBlankSpace(surnameInput.value)
+    let email = removeBlankSpace(emailInput.value)
+    let password = removeBlankSpace(passwordInput.value)
+
+    signUpUserObject.name = name
+    signUpUserObject.surname = surname
+    signUpUserObject.email = email
+    signUpUserObject.password = password
+
+    let signUpUserObjectJSON = JSON.stringify(signUpUserObject)
+    console.log(signUpUserObjectJSON);
+
     event.preventDefault()
 })
 
