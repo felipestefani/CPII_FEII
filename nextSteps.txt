@@ -1,5 +1,5 @@
 Next steps to improve the application:
     - do a better validation to confirm password (function that listen both to match on any modification)
     - correct mobile layout (android mobiles inputs seems not to be all right)
-    - insert userObject on JS files
+    - improve the code that makes the userObject assingments (for with an array)
     - insert task files to the project
