@@ -102,7 +102,17 @@ buttonElement.addEventListener('click', event => {
     userObject.password = password
 
     let userObjectJSON = JSON.stringify(userObject)
-    console.log(userObjectJSON)
+    //console.log(userObjectJSON)
+
+    let requestConfig = {
+        method: "POST", 
+        headers: {  
+            "Content-type": "Application/json"
+        },
+        body: userObjectJSON
+    }    
+
+    requestAPI('https://ctd-todo-api.herokuapp.com/v1/users/login', requestConfig)
 
     event.preventDefault()
 })
@@ -110,4 +120,22 @@ buttonElement.addEventListener('click', event => {
 //------------------------function to remove blank spaces from any border----------------------------
 function removeBlankSpace(text){
     return text.trim()
+}
+
+//------------------------function to requisitions------------------------
+function requestAPI(url, configs){
+    fetch(url, configs)
+    .then( result => {
+       if(result.status == 200 || result.status == 201){
+            return result.json()
+        } else {
+            throw result
+        }
+    })
+    .then( result => {
+        console.log(result);
+    })
+    .catch( erro => {
+        console.log(erro);
+    })
 }

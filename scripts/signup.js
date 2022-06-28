@@ -8,8 +8,8 @@ let corFundoValidado = "rgb(223, 237, 236)" //'#dfedec'
 
 //-----------------------Sing up user object--------------------------
 let signUpUserObject = {
-    'name': '',
-    'surname': '',
+    'firstName': '',
+    'lastName': '',
     'email': '',
     'password': ''
 }
@@ -203,18 +203,28 @@ function buttonValidation(nameStyle, surnameStyle, emailStyle, passwordStyle){
 
 //------------------------Button action----------------------------
 buttonElement.addEventListener('click', event => {
-    let name =  removeBlankSpace(nameInput.value)   
-    let surname = removeBlankSpace(surnameInput.value)
+    let firstName =  removeBlankSpace(nameInput.value)   
+    let lastName = removeBlankSpace(surnameInput.value)
     let email = removeBlankSpace(emailInput.value)
     let password = removeBlankSpace(passwordInput.value)
 
-    signUpUserObject.name = name
-    signUpUserObject.surname = surname
+    signUpUserObject.firstName = firstName
+    signUpUserObject.lastName = lastName
     signUpUserObject.email = email
     signUpUserObject.password = password
 
     let signUpUserObjectJSON = JSON.stringify(signUpUserObject)
-    console.log(signUpUserObjectJSON);
+    //console.log(signUpUserObjectJSON);
+
+    let requestConfig = {
+        method: 'POST',
+        headers: {
+            "Content-type": "Application/json"
+        },
+        body: signUpUserObjectJSON
+    }
+    
+    requestAPI('https://ctd-todo-api.herokuapp.com/v1/users', requestConfig)
 
     event.preventDefault()
 })
@@ -222,4 +232,22 @@ buttonElement.addEventListener('click', event => {
 //------------------------function to remove blank spaces from any border----------------------------
 function removeBlankSpace(text){
     return text.trim()
+}
+
+//------------------------function to requisitions------------------------
+function requestAPI(url, configs){
+    fetch(url, configs)
+    .then( result => {
+       if(result.status == 200 || result.status == 201){
+            return result.json()
+        } else {
+            throw result
+        }
+    })
+    .then( result => {
+        console.log(result);
+    })
+    .catch( erro => {
+        console.log(erro);
+    })
 }
